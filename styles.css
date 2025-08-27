@@ -3172,13 +3172,13 @@ a.retro-btn.secondary:hover {
     /* Customer Insights section mobile improvements */
     .insights-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .insight-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     .insight-stat {
@@ -3311,7 +3311,7 @@ a.retro-btn.secondary:hover {
     
     .problem-points {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
         max-width: 100%;
     }
     
@@ -3379,12 +3379,12 @@ a.retro-btn.secondary:hover {
     }
     
     .problem-points {
-        margin: var(--spacing-lg) 0;
+        margin: var(--spacing-md) 0;
     }
     
     .problem-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
         align-items: center;
     }
     
@@ -3402,13 +3402,13 @@ a.retro-btn.secondary:hover {
     /* Features section mobile improvements */
     .features-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .feature-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     /* Receipt scanner section mobile improvements */
@@ -3418,13 +3418,13 @@ a.retro-btn.secondary:hover {
     
     .receipt-scanner-info {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: var(--spacing-sm);
         max-width: 100%;
     }
     
     .benefit-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     .benefit-card h3 {
@@ -3438,37 +3438,37 @@ a.retro-btn.secondary:hover {
     /* How it works section mobile improvements */
     .steps-container {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .step-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     /* Testimonials section mobile improvements */
     .testimonials-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .testimonial-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     /* Pricing section mobile improvements */
     .pricing-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .pricing-card {
-        padding: var(--spacing-md);
-        margin: var(--spacing-sm) 0;
+        padding: var(--spacing-sm);
+        margin: var(--spacing-xs) 0;
     }
     
     .pricing-card.featured {
@@ -3477,24 +3477,24 @@ a.retro-btn.secondary:hover {
     
     /* FAQ section mobile improvements */
     .faq-item {
-        margin: var(--spacing-sm) 0;
+        margin: var(--spacing-xs) 0;
     }
     
     .faq-question {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm);
         font-size: 0.95rem;
     }
     
     .faq-answer {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm);
         font-size: 0.9rem;
     }
     
     /* Tech stack section mobile improvements */
     .tech-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
-        margin: var(--spacing-lg) 0;
+        gap: var(--spacing-sm);
+        margin: var(--spacing-md) 0;
     }
     
     .tech-card {
@@ -3649,7 +3649,7 @@ a.retro-btn.secondary:hover {
     }
     
     .dashboard-card {
-        padding: var(--spacing-sm);
+        padding: var(--spacing-xs);
         margin: var(--spacing-xs) 0;
     }
     
