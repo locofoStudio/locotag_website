@@ -2673,6 +2673,50 @@ a.retro-btn.secondary:hover {
     padding: var(--spacing-md) var(--spacing-xl);
 }
 
+/* Contact Call to Action Section */
+.contact-cta-section {
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #1a1d20 100%);
+    text-align: center;
+    border-top: 1px solid #525E5D;
+    border-bottom: 1px solid #525E5D;
+}
+
+.cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-cta-section h2 {
+    color: var(--accent-yellow);
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-body);
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cta-subtitle {
+    color: var(--accent-lilac);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .retro-btn {
+    min-width: 200px;
+    font-size: 1.1rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
 /* Contact FAQ Section */
 .contact-faq-section {
     padding: var(--spacing-xxl) var(--spacing-xl);
@@ -3050,6 +3094,7 @@ a.retro-btn.secondary:hover {
     .contact-page-header,
     .contact-methods-section,
     .contact-form-section,
+    .contact-cta-section,
     .contact-faq-section {
         padding: var(--spacing-lg) var(--spacing-md);
     }
@@ -3065,6 +3110,17 @@ a.retro-btn.secondary:hover {
     
     .faq-grid {
         margin: 0 var(--spacing-sm);
+    }
+    
+    /* Contact CTA section mobile improvements */
+    .cta-buttons {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .cta-buttons .retro-btn {
+        min-width: 100%;
+        max-width: 300px;
     }
     
     .hero-stats {
