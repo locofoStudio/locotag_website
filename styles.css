@@ -629,11 +629,26 @@ a.retro-btn.secondary:hover {
 
 .score-category {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     padding: var(--spacing-xs);
     background: transparent;
     border-radius: var(--border-radius-sm);
     font-size: 0.9rem;
+    text-align: center;
+}
+
+.score-category .metric-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+}
+
+.score-category .metric-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 .venue-metrics {
@@ -644,11 +659,26 @@ a.retro-btn.secondary:hover {
 
 .venue-metric {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     padding: var(--spacing-xs);
     background: transparent;
     border-radius: var(--border-radius-sm);
     font-size: 0.9rem;
+    text-align: center;
+}
+
+.venue-metric .metric-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    text-align: center;
+}
+
+.venue-metric .metric-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 /* Client UI Preview */
