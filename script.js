@@ -519,40 +519,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Console welcome message
-    console.log(`
-    🎮 Welcome to Locotag Studio!
-    
-    This website features:
-    - Retro OS aesthetic with modern functionality
-    - Interactive dashboard preview
-    - Mobile-responsive design
-    - Smooth animations and transitions
-    - Complete business sections (Features, Pricing, FAQ, Contact)
-    - Interactive video player with retro controls
-    - Pilot Program section for exclusive venue partnerships
-    
-    Built with love for Hong Kong's hospitality industry.
-    `);
-    
-    // Pilot Program form handling
-    const pilotForm = document.querySelector('.pilot-program-form');
-    if (pilotForm) {
-        pilotForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            
-            // Show success message
-            showNotification('🎉 Application submitted! We\'ll contact you within 24 hours.', 'success');
-            
-            // Clear form
-            this.reset();
-            
-            // Log application (you can integrate with your CRM here)
-            console.log('🚀 Pilot Program Application:', email);
-        });
-    }
-    
     // Contact page form handling
     const contactForm = document.querySelector('.contact-page-form');
     if (contactForm) {
@@ -587,6 +553,232 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Reset form
             this.reset();
+        });
+    }
+
+    // Falling Coins Animation on Scroll
+    function createFallingCoins() {
+        const coinContainer = document.createElement('div');
+        coinContainer.className = 'falling-coins-container';
+        coinContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        `;
+        document.body.appendChild(coinContainer);
+
+        // Create multiple coin elements with different properties
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                createCoin(coinContainer, i);
+            }, i * 200); // Stagger coin creation
+        }
+    }
+
+    function createCoin(container, index) {
+        const coin = document.createElement('img');
+        coin.className = 'falling-coin';
+        
+        // Randomly select one of the 7 SVG coins with consistent filenames (no spaces)
+        const coinNumber = Math.floor(Math.random() * 7) + 1;
+        const coinFilename = `coin${coinNumber}.svg`;
+        coin.src = `Assets/coins/${coinFilename}`;
+        coin.alt = `Coin ${coinNumber}`;
+        
+        coin.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 20 + 20}px;
+            height: ${Math.random() * 20 + 20}px;
+            left: ${Math.random() * 100}%;
+            top: -50px;
+            opacity: 0;
+            transform: rotate(${Math.random() * 360}deg);
+            transition: all 0.1s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        `;
+        
+        container.appendChild(coin);
+
+        // Animate coin falling
+        const animationDuration = Math.random() * 3000 + 4000; // 4-7 seconds
+        const horizontalDrift = (Math.random() - 0.5) * 200; // Random horizontal movement
+        
+        // Fade in
+        setTimeout(() => {
+            coin.style.opacity = '1';
+            coin.style.transform = `translateX(${horizontalDrift}px) translateY(100vh) rotate(${Math.random() * 720}deg)`;
+        }, 100);
+
+        // Remove coin after animation
+        setTimeout(() => {
+            if (coin.parentNode) {
+                coin.parentNode.removeChild(coin);
+            }
+        }, animationDuration + 1000);
+    }
+
+    // Trigger falling coins on scroll
+    let coinsTriggered = false;
+    let scrollThreshold = window.innerHeight * 0.3; // Trigger at 30% scroll
+
+    function handleScrollForCoins() {
+        if (coinsTriggered) return;
+        
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        
+        if (scrollPercent > 30) {
+            coinsTriggered = true;
+            createFallingCoins();
+            
+            // Remove scroll listener after triggering
+            window.removeEventListener('scroll', handleScrollForCoins);
+        }
+    }
+
+    // Add scroll listener for coins
+    window.addEventListener('scroll', handleScrollForCoins);
+
+    // Additional coin triggers for specific sections
+    function createSectionCoins(sectionSelector, coinCount = 8) {
+        const section = document.querySelector(sectionSelector);
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Create a smaller burst of coins for section highlights
+                    setTimeout(() => {
+                        createSectionCoinBurst(coinCount);
+                    }, 500);
+                    
+                    // Only trigger once per section
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        observer.observe(section);
+    }
+
+    function createSectionCoinBurst(count) {
+        const container = document.createElement('div');
+        container.className = 'falling-coins-container section-coins';
+        container.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        `;
+        document.body.appendChild(container);
+
+        for (let i = 0; i < count; i++) {
+            setTimeout(() => {
+                createSectionCoin(container, i);
+            }, i * 150);
+        }
+
+        // Remove container after animation
+        setTimeout(() => {
+            if (container.parentNode) {
+                container.parentNode.removeChild(container);
+            }
+        }, 8000);
+    }
+
+    function createSectionCoin(container, index) {
+        const coin = document.createElement('img');
+        coin.className = 'falling-coin section-coin';
+        
+        // Randomly select one of the 7 SVG coins with consistent filenames (no spaces)
+        const coinNumber = Math.floor(Math.random() * 7) + 1;
+        const coinFilename = `coin${coinNumber}.svg`;
+        coin.src = `Assets/coins/${coinFilename}`;
+        coin.alt = `Coin ${coinNumber}`;
+        
+        coin.style.cssText = `
+            position: absolute;
+            width: ${Math.random() * 16 + 16}px;
+            height: ${Math.random() * 16 + 16}px;
+            left: ${Math.random() * 100}%;
+            top: -30px;
+            opacity: 0;
+            transform: rotate(${Math.random() * 360}deg);
+            transition: all 0.1s ease;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+        `;
+        
+        container.appendChild(coin);
+
+        const animationDuration = Math.random() * 2000 + 3000; // 3-5 seconds
+        const horizontalDrift = (Math.random() - 0.5) * 150;
+        
+        setTimeout(() => {
+            coin.style.opacity = '1';
+            coin.style.transform = `translateX(${horizontalDrift}px) translateY(80vh) rotate(${Math.random() * 540}deg)`;
+        }, 100);
+
+        setTimeout(() => {
+            if (coin.parentNode) {
+                coin.parentNode.removeChild(coin);
+            }
+        }, animationDuration + 1000);
+    }
+
+    // Set up section coin triggers for key sections
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger coins for pilot program section
+        createSectionCoins('.pilot-program', 6);
+        
+        // Trigger coins for pricing section
+        createSectionCoins('.pricing-section', 8);
+        
+        // Trigger coins for customer insights section
+        createSectionCoins('.customer-insights', 5);
+    });
+
+    // Console welcome message
+    console.log(`
+    🎮 Welcome to Locotag Studio!
+    
+    This website features:
+    - Retro OS aesthetic with modern functionality
+    - Interactive dashboard preview
+    - Mobile-responsive design
+    - Smooth animations and transitions
+    - Complete business sections (Features, Pricing, FAQ, Contact)
+    - Interactive video player with retro controls
+    - Pilot Program section for exclusive venue partnerships
+    
+    Built with love for Hong Kong's hospitality industry.
+    `);
+    
+    // Pilot Program form handling
+    const pilotForm = document.querySelector('.pilot-program-form');
+    if (pilotForm) {
+        pilotForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Show success message
+            showNotification('🎉 Application submitted! We\'ll contact you within 24 hours.', 'success');
+            
+            // Clear form
+            this.reset();
+            
+            // Log application (you can integrate with your CRM here)
+            console.log('🚀 Pilot Program Application:', email);
         });
     }
     
