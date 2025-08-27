@@ -1,0 +1,565 @@
+// Locotag Website JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (mobileMenuToggle && sidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            mobileMenuToggle.classList.toggle('active');
+        });
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (sidebar && sidebar.classList.contains('open')) {
+            if (!sidebar.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+                mobileMenuToggle.classList.remove('active');
+            }
+        }
+    });
+    
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('.sidebar-menu a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Close mobile menu after navigation
+                if (sidebar && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            }
+        });
+    });
+    
+    // Retro Button Interactions
+    const retroButtons = document.querySelectorAll('.retro-btn');
+    retroButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+            
+            // Handle specific button actions
+            const buttonText = this.textContent.toLowerCase();
+            
+            if (buttonText.includes('demo')) {
+                // Demo booking functionality
+                showNotification('Demo booking feature coming soon!', 'info');
+            } else if (buttonText.includes('game')) {
+                // Game trial functionality
+                showNotification('Game trial feature coming soon!', 'info');
+            } else if (buttonText.includes('logout')) {
+                // Logout functionality
+                showNotification('Logout feature coming soon!', 'info');
+            }
+        });
+        
+        // Add hover sound effect simulation
+        button.addEventListener('mouseenter', function() {
+            this.style.boxShadow = '0 0 20px rgba(197, 195, 82, 0.5)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.boxShadow = '';
+        });
+    });
+    
+    // Dashboard Card Interactions
+    const dashboardCards = document.querySelectorAll('.dashboard-card');
+    dashboardCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Animated Counter for Metrics
+    function animateCounter(element, target, duration = 2000) {
+        const start = 0;
+        const increment = target / (duration / 16);
+        let current = start;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                current = target;
+                clearInterval(timer);
+            }
+            element.textContent = Math.floor(current).toLocaleString();
+        }, 16);
+    }
+    
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                
+                // Animate counters in dashboard cards
+                if (entry.target.classList.contains('dashboard-card')) {
+                    const metrics = entry.target.querySelectorAll('.metric-value');
+                    metrics.forEach(metric => {
+                        const value = parseInt(metric.textContent.replace(/,/g, ''));
+                        if (!isNaN(value)) {
+                            metric.textContent = '0';
+                            setTimeout(() => {
+                                animateCounter(metric, value);
+                            }, 500);
+                        }
+                    });
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe dashboard cards
+    dashboardCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        observer.observe(card);
+    });
+    
+    // Notification System
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-message">${message}</span>
+                <button class="notification-close">×</button>
+            </div>
+        `;
+        
+        // Add notification styles
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-orange);
+            color: var(--accent-white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--accent-white);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        });
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }
+        }, 5000);
+    }
+    
+    // Game Button Interactions (Client UI)
+    const gameButtons = document.querySelectorAll('.game-btn');
+    gameButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const buttonText = this.textContent.toLowerCase();
+            
+            if (buttonText.includes('play')) {
+                showNotification('Starting game...', 'success');
+                // Simulate game loading
+                this.textContent = 'Loading...';
+                this.disabled = true;
+                setTimeout(() => {
+                    this.textContent = 'Play the game';
+                    this.disabled = false;
+                }, 2000);
+            } else if (buttonText.includes('wallet')) {
+                showNotification('Opening wallet...', 'info');
+            } else if (buttonText.includes('offers')) {
+                showNotification('Loading offers...', 'info');
+            } else if (buttonText.includes('scoreboard')) {
+                showNotification('Loading leaderboard...', 'info');
+            } else if (buttonText.includes('review')) {
+                showNotification('Opening review form...', 'info');
+            } else if (buttonText.includes('sign out')) {
+                showNotification('Signing out...', 'info');
+            }
+        });
+    });
+    
+    // Problem Card Interactions
+    const problemCards = document.querySelectorAll('.problem-card');
+    problemCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'translateX(16px) scale(1.05)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 300);
+        });
+    });
+    
+    // QR Code Interaction
+    const qrCode = document.querySelector('.qr-placeholder');
+    if (qrCode) {
+        qrCode.addEventListener('click', function() {
+            showNotification('QR Code scanned!', 'success');
+        });
+        
+        qrCode.style.cursor = 'pointer';
+        qrCode.title = 'Click to scan QR code';
+    }
+    
+    // Keyboard Navigation
+    document.addEventListener('keydown', function(e) {
+        // Escape key closes mobile menu
+        if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            mobileMenuToggle.classList.remove('active');
+        }
+        
+        // Enter key on focused buttons
+        if (e.key === 'Enter' && document.activeElement.classList.contains('retro-btn')) {
+            document.activeElement.click();
+        }
+    });
+    
+    // Scroll-based animations
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        
+        // Add scroll class to body for styling
+        document.body.classList.add('scrolling');
+        
+        scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('scrolling');
+        }, 150);
+    });
+    
+    // Performance optimization: Debounce scroll events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Parallax effect for hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        window.addEventListener('scroll', debounce(() => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        }, 10));
+    }
+    
+    // Initialize tooltips for interactive elements
+    function initTooltips() {
+        const tooltipElements = document.querySelectorAll('[title]');
+        tooltipElements.forEach(element => {
+            element.addEventListener('mouseenter', function(e) {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = this.title;
+                tooltip.style.cssText = `
+                    position: absolute;
+                    background: var(--primary-bg);
+                    color: var(--accent-white);
+                    padding: 0.5rem;
+                    border: 1px solid var(--accent-yellow);
+                    border-radius: 4px;
+                    font-size: 0.8rem;
+                    font-family: var(--font-body);
+                    z-index: 1000;
+                    pointer-events: none;
+                    white-space: nowrap;
+                `;
+                
+                document.body.appendChild(tooltip);
+                
+                const rect = this.getBoundingClientRect();
+                tooltip.style.left = rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2) + 'px';
+                tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+                
+                this.addEventListener('mouseleave', () => {
+                    if (document.body.contains(tooltip)) {
+                        document.body.removeChild(tooltip);
+                    }
+                }, { once: true });
+            });
+        });
+    }
+    
+    // Initialize tooltips after DOM is ready
+    setTimeout(initTooltips, 1000);
+    
+    // Add loading states for buttons
+    function addLoadingState(button) {
+        const originalText = button.textContent;
+        button.textContent = 'Loading...';
+        button.disabled = true;
+        button.classList.add('loading');
+        
+        return function() {
+            button.textContent = originalText;
+            button.disabled = false;
+            button.classList.remove('loading');
+        };
+    }
+    
+    // Form handling (if forms are added later)
+    document.addEventListener('submit', function(e) {
+        if (e.target.tagName === 'FORM') {
+            e.preventDefault();
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            if (submitButton) {
+                const resetLoading = addLoadingState(submitButton);
+                setTimeout(resetLoading, 2000);
+            }
+        }
+    });
+    
+    // FAQ Functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+        const toggle = item.querySelector('.faq-toggle');
+        
+        question.addEventListener('click', function() {
+            const isActive = item.classList.contains('active');
+            
+            // Close all other FAQ items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+    
+    // Form Submission
+    const demoForm = document.querySelector('.demo-form');
+    if (demoForm) {
+        demoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showNotification('Demo request submitted! We\'ll contact you within 24 hours.', 'success');
+            
+            // Reset form
+            demoForm.reset();
+        });
+    }
+    
+    // Pricing Card Interactions
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    pricingCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const button = this.querySelector('.retro-btn');
+            if (button) {
+                const buttonText = button.textContent.toLowerCase();
+                if (buttonText.includes('started')) {
+                    showNotification('Redirecting to signup...', 'info');
+                } else if (buttonText.includes('popular')) {
+                    showNotification('Redirecting to Professional plan...', 'info');
+                } else if (buttonText.includes('sales')) {
+                    showNotification('Connecting you with sales team...', 'info');
+                }
+            }
+        });
+    });
+    
+    // Video player controls
+    const playBtn = document.querySelector('.play-btn');
+    const pauseBtn = document.querySelector('.pause-btn');
+    const playOverlay = document.querySelector('.play-overlay');
+    const video = document.querySelector('.old-youtube-frame video');
+    
+    if (playBtn && pauseBtn && playOverlay && video) {
+        let isPlaying = false;
+        
+        // Play button functionality
+        playBtn.addEventListener('click', () => {
+            isPlaying = true;
+            playBtn.classList.add('active');
+            pauseBtn.classList.remove('active');
+            playOverlay.style.display = 'none';
+            video.play();
+        });
+        
+        // Pause button functionality
+        pauseBtn.addEventListener('click', () => {
+            isPlaying = false;
+            pauseBtn.classList.add('active');
+            playBtn.classList.remove('active');
+            playOverlay.style.display = 'flex';
+            video.pause();
+        });
+        
+        // Play overlay click
+        playOverlay.addEventListener('click', () => {
+            playBtn.click();
+        });
+        
+        // Video event listeners
+        video.addEventListener('play', () => {
+            isPlaying = true;
+            playBtn.classList.add('active');
+            pauseBtn.classList.remove('active');
+            playOverlay.style.display = 'none';
+        });
+        
+        video.addEventListener('pause', () => {
+            isPlaying = false;
+            pauseBtn.classList.add('active');
+            playBtn.classList.remove('active');
+            playOverlay.style.display = 'flex';
+        });
+        
+        // Progress bar click
+        const progressBar = document.querySelector('.progress');
+        if (progressBar) {
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percentage = (clickX / rect.width) * 100;
+                
+                // Update video time
+                const newTime = (percentage / 100) * video.duration;
+                video.currentTime = newTime;
+                
+                // Update progress bar visual
+                progressBar.style.setProperty('--progress', `${percentage}%`);
+            });
+        }
+        
+        // Update progress bar as video plays
+        video.addEventListener('timeupdate', () => {
+            if (progressBar && video.duration) {
+                const percentage = (video.currentTime / video.duration) * 100;
+                progressBar.style.setProperty('--progress', `${percentage}%`);
+            }
+        });
+        
+        // Auto-play video when section comes into view
+        const videoSection = document.querySelector('.locotag-action-section');
+        if (videoSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !isPlaying) {
+                        // Auto-play when video section is visible
+                        video.play();
+                        isPlaying = true;
+                        playBtn.classList.add('active');
+                        pauseBtn.classList.remove('active');
+                        playOverlay.style.display = 'none';
+                        
+                        // Pause video when section goes out of view
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.3, // Trigger when 30% of section is visible
+                rootMargin: '0px 0px -100px 0px' // Start playing slightly before fully in view
+            });
+            
+            observer.observe(videoSection);
+        }
+    }
+    
+    // Console welcome message
+    console.log(`
+    🎮 Welcome to Locotag Studio!
+    
+    This website features:
+    - Retro OS aesthetic with modern functionality
+    - Interactive dashboard preview
+    - Mobile-responsive design
+    - Smooth animations and transitions
+    - Complete business sections (Features, Pricing, FAQ, Contact)
+    - Interactive video player with retro controls
+    - Pilot Program section for exclusive venue partnerships
+    
+    Built with love for Hong Kong's hospitality industry.
+    `);
+    
+    // Pilot Program form handling
+    const pilotForm = document.querySelector('.pilot-program-form');
+    if (pilotForm) {
+        pilotForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Show success message
+            showNotification('🎉 Application submitted! We\'ll contact you within 24 hours.', 'success');
+            
+            // Clear form
+            this.reset();
+            
+            // Log application (you can integrate with your CRM here)
+            console.log('🚀 Pilot Program Application:', email);
+        });
+    }
+    
+    // Performance monitoring
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log(`🚀 Page loaded in ${loadTime}ms`);
+            }, 0);
+        });
+    }
+});
