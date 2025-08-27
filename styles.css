@@ -85,6 +85,7 @@ p {
     letter-spacing: 0.05em;
     padding: var(--spacing-sm) var(--spacing-md);
     border: 2px solid var(--accent-white);
+    border-radius: 9px;
     background: transparent;
     color: var(--accent-white);
     cursor: pointer;
@@ -100,7 +101,7 @@ p {
     background: var(--accent-white);
     color: var(--primary-bg);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    box-shadow: -4px 5px 0 0 #6FA6A0;
 }
 
 .retro-btn:active {
@@ -118,6 +119,7 @@ p {
     background: var(--accent-white);
     color: var(--accent-orange);
     border-color: var(--accent-white);
+    box-shadow: -4px 5px 0 0 #6FA6A0;
 }
 
 .retro-btn.secondary {
@@ -130,6 +132,7 @@ p {
     background: var(--primary-bg);
     color: var(--accent-yellow);
     border-color: var(--accent-yellow);
+    box-shadow: -4px 5px 0 0 #6FA6A0;
 }
 
 .retro-btn.small {
@@ -141,6 +144,7 @@ p {
 a.retro-btn {
     text-decoration: none;
     border: 2px solid var(--accent-white);
+    border-radius: 9px;
     cursor: pointer;
 }
 
@@ -154,6 +158,7 @@ a.retro-btn.primary:hover {
     background: var(--accent-white);
     color: var(--accent-orange);
     border-color: var(--accent-white);
+    box-shadow: -4px 5px 0 0 #6FA6A0;
 }
 
 a.retro-btn.secondary {
@@ -166,6 +171,7 @@ a.retro-btn.secondary:hover {
     background: var(--primary-bg);
     color: var(--accent-yellow);
     border-color: var(--accent-yellow);
+    box-shadow: -4px 5px 0 0 #6FA6A0;
 }
 
 /* Sidebar Navigation */
@@ -442,7 +448,7 @@ a.retro-btn.secondary:hover {
 .pilot-program-form input[type="email"]:focus {
     outline: none;
     border-color: var(--accent-yellow);
-    box-shadow: 0 0 0 2px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .pilot-program-form input[type="email"]::placeholder {
@@ -497,6 +503,27 @@ a.retro-btn.secondary:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     border-color: var(--accent-yellow);
+}
+
+/* Card-specific hover effects with sharp drop shadows using brand colors */
+.users-card:hover {
+    box-shadow: -4px 5px 0 0 rgba(191, 155, 242, 1);
+}
+
+.coins-card:hover {
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
+}
+
+.distribution-card:hover {
+    box-shadow: -4px 5px 0 0 rgba(111, 166, 160, 1);
+}
+
+.engagement-card:hover {
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
+}
+
+.venue-card:hover {
+    box-shadow: -4px 5px 0 0 rgba(191, 155, 242, 1);
 }
 
 .dashboard-card h3 {
@@ -1022,7 +1049,7 @@ a.retro-btn.secondary:hover {
 .insight-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent-yellow);
-    box-shadow: 0 8px 30px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .insight-icon {
@@ -1370,7 +1397,7 @@ a.retro-btn.secondary:hover {
 .loyalty-card.solution {
     border-color: var(--accent-yellow);
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .loyalty-card:hover {
@@ -1531,7 +1558,7 @@ a.retro-btn.secondary:hover {
 .problem-card:hover {
     transform: translateX(8px);
     border-color: var(--accent-orange);
-    box-shadow: 0 8px 30px rgba(242, 71, 56, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(242, 71, 56, 1);
 }
 
 .problem-icon {
@@ -1596,7 +1623,7 @@ a.retro-btn.secondary:hover {
 
 .feature-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
     border-color: var(--accent-yellow);
 }
 
@@ -1644,7 +1671,10 @@ a.retro-btn.secondary:hover {
     align-items: flex-start;
     gap: var(--spacing-md);
     text-align: left;
+    transition: all 0.3s ease;
 }
+
+
 
 .step-number {
     width: 50px;
@@ -1918,7 +1948,7 @@ a.retro-btn.secondary:hover {
 .benefit-card:hover {
     transform: translateX(8px);
     border-color: var(--accent-yellow);
-    box-shadow: 0 8px 30px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .benefit-icon {
@@ -1983,7 +2013,7 @@ a.retro-btn.secondary:hover {
 
 .testimonial-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 5px 0 0 rgba(191, 155, 242, 1);
     border-color: var(--accent-lilac);
 }
 
@@ -2073,7 +2103,7 @@ a.retro-btn.secondary:hover {
 .addon-item:hover {
     transform: translateY(-4px);
     border-color: var(--accent-yellow);
-    box-shadow: 0 8px 30px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .addon-icon {
@@ -2157,7 +2187,7 @@ a.retro-btn.secondary:hover {
 .custom-item:hover {
     transform: translateY(-4px);
     border-color: var(--accent-teal);
-    box-shadow: 0 8px 30px rgba(111, 166, 160, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(111, 166, 160, 1);
 }
 
 .custom-icon {
@@ -2279,7 +2309,7 @@ a.retro-btn.secondary:hover {
 .enterprise-item:hover {
     transform: translateY(-4px);
     border-color: var(--accent-lilac);
-    box-shadow: 0 8px 30px rgba(191, 155, 242, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(191, 155, 242, 1);
 }
 
 .enterprise-icon {
@@ -2346,7 +2376,7 @@ a.retro-btn.secondary:hover {
 
 .pricing-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .pricing-header {
@@ -2437,6 +2467,7 @@ a.retro-btn.secondary:hover {
 
 .faq-item:hover {
     border-color: var(--accent-yellow);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .faq-question {
@@ -2515,7 +2546,7 @@ a.retro-btn.secondary:hover {
 
 .tech-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: -4px 5px 0 0 rgba(111, 166, 160, 1);
     border-color: var(--accent-teal);
 }
 
@@ -2561,7 +2592,7 @@ a.retro-btn.secondary:hover {
 
 .contact-us-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(197, 195, 82, 0.3);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 /* Contact Page Styles */
@@ -2626,7 +2657,7 @@ a.retro-btn.secondary:hover {
 .contact-method-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent-yellow);
-    box-shadow: 0 8px 30px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .method-icon {
@@ -2741,7 +2772,7 @@ a.retro-btn.secondary:hover {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-yellow);
-    box-shadow: 0 0 0 2px rgba(197, 195, 82, 0.2);
+    box-shadow: -4px 5px 0 0 rgba(197, 195, 82, 1);
 }
 
 .form-group input::placeholder {
@@ -3532,6 +3563,18 @@ a.retro-btn.secondary:hover {
         max-width: 280px;
     }
     
+    .retro-btn:hover {
+        box-shadow: -4px 5px 0 0 #6FA6A0;
+    }
+    
+    .retro-btn.primary:hover {
+        box-shadow: -4px 5px 0 0 #6FA6A0;
+    }
+    
+    .retro-btn.secondary:hover {
+        box-shadow: -4px 5px 0 0 #6FA6A0;
+    }
+    
     /* Metric row mobile improvements */
     .metric-row {
         flex-direction: column;
@@ -3707,6 +3750,18 @@ a.retro-btn.secondary:hover {
         padding: var(--spacing-xs) var(--spacing-sm);
         font-size: 0.9rem;
         width: 100%;
+    }
+    
+    .retro-btn:hover {
+        box-shadow: -4px 5px 0 0 rgba(242, 71, 56, 1);
+    }
+    
+    .retro-btn.primary:hover {
+        box-shadow: -4px 5px 0 0 rgba(242, 71, 56, 1);
+    }
+    
+    .retro-btn.secondary:hover {
+        box-shadow: -4px 5px 0 0 rgba(242, 71, 56, 1);
     }
     
     .mobile-frame {

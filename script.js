@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add hover sound effect simulation
         button.addEventListener('mouseenter', function() {
-            this.style.boxShadow = '0 0 20px rgba(197, 195, 82, 0.5)';
+            // Apply teal shadow to all buttons
+            this.style.boxShadow = '-4px 5px 0 0 #6FA6A0';
         });
         
         button.addEventListener('mouseleave', function() {
