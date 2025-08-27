@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Locotag Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Founder+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&family=Roboto+Flex:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <!-- Contact Page Header -->
+        <section class="contact-page-header">
+            <div class="header-content">
+                <a href="index.html" class="back-button">← Back to Home</a>
+                <h1>Get in Touch</h1>
+                <p class="header-subtitle">Ready to transform your loyalty program? Let's talk about how Locotag can work for your venue.</p>
+            </div>
+        </section>
+
+        <!-- Contact Methods Section -->
+        <section class="contact-methods-section">
+            <div class="contact-methods-grid">
+                <div class="contact-method-card">
+                    <div class="method-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <p>hello@locotag.io</p>
+                    <a href="mailto:hello@locotag.io" class="method-link">Send Email</a>
+                </div>
+                
+                <div class="contact-method-card">
+                    <div class="method-icon">📞</div>
+                    <h3>Call Us</h3>
+                    <p>+852 94637357</p>
+                    <a href="tel:+85294637357" class="method-link">Call Now</a>
+                </div>
+                
+                
+                <div class="contact-method-card">
+                    <div class="method-icon">💬</div>
+                    <h3>WhatsApp</h3>
+                    <p>Message us for quick responses</p>
+                    <a href="https://wa.me/85294637357" target="_blank" class="method-link">Chat on WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section">
+            <div class="form-container">
+                <h2>Send Us a Message</h2>
+                <p class="form-subtitle">Tell us about your venue and we'll get back to you within 24 hours.</p>
+                
+                <form class="contact-page-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="venue-name">Venue Name *</label>
+                            <input type="text" id="venue-name" name="venue-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-name">Your Name *</label>
+                            <input type="text" id="contact-name" name="contact-name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="venue-type">Venue Type *</label>
+                        <select id="venue-type" name="venue-type" required>
+                            <option value="">Select your venue type</option>
+                            <option value="restaurant">Restaurant</option>
+                            <option value="cafe">Café</option>
+                            <option value="bar">Bar</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="locations">Number of Locations *</label>
+                        <select id="locations" name="locations" required>
+                            <option value="">Select number of locations</option>
+                            <option value="1">1 Location</option>
+                            <option value="2-5">2-5 Locations</option>
+                            <option value="6-10">6-10 Locations</option>
+                            <option value="10+">10+ Locations</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Tell us about your needs *</label>
+                        <textarea id="message" name="message" rows="4" placeholder="What are you looking for in a loyalty program? Any specific requirements or questions?" required></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="pilot-interest" name="pilot-interest">
+                        <label for="pilot-interest">I'm interested in the Pilot Program (1 month free)</label>
+                    </div>
+                    
+                    <button type="submit" class="retro-btn primary-btn submit-btn">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+         <!-- FAQ Section -->
+         <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does setup take?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Most restaurants are live within 7 days. We handle the NFC card setup, game customization, and staff training.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do customers need to download an app?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No! That's the beauty of NFC. Customers just tap their phone on the card and the game launches instantly.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What if customers don't have Apple/Google Wallet?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide alternative redemption methods including SMS codes and QR codes for universal compatibility.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can we customize the games?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We can create custom game themes, characters, and branding to match your restaurant's identity.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How do we track success?</h3>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our dashboard provides real-time analytics on customer engagement, redemption rates, and business impact.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>hello@locotag.io</p>
+            <p>+852 94637357</p>
+        </div>
+      
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Locotag. All rights reserved.</p>
+    </div>
+</footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

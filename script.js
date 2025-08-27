@@ -553,6 +553,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Contact page form handling
+    const contactForm = document.querySelector('.contact-page-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const venueName = formData.get('venue-name');
+            const contactName = formData.get('contact-name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const venueType = formData.get('venue-type');
+            const locations = formData.get('locations');
+            const message = formData.get('message');
+            const pilotInterest = formData.get('pilot-interest');
+            
+            // Show success notification
+            showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
+            
+            // Log the form data (in production, this would send to your backend)
+            console.log('Contact form submission:', {
+                venueName,
+                contactName,
+                email,
+                phone,
+                venueType,
+                locations,
+                message,
+                pilotInterest: pilotInterest ? 'Yes' : 'No'
+            });
+            
+            // Reset form
+            this.reset();
+        });
+    }
+    
     // Performance monitoring
     if ('performance' in window) {
         window.addEventListener('load', () => {
