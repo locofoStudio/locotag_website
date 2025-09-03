@@ -448,7 +448,7 @@ ${venueName}`
             };
             
             // Send email using EmailJS
-            emailjs.send('service_id', 'template_id', templateParams)
+            emailjs.send('service_default', 'template_default', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
@@ -834,7 +834,7 @@ ${email}`
             };
             
             // Send email using EmailJS
-            emailjs.send('service_id', 'template_id', templateParams)
+            emailjs.send('service_default', 'template_default', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showNotification('🎉 Application submitted successfully! We\'ll contact you within 24 hours.', 'success');
