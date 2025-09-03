@@ -417,54 +417,44 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             showNotification('📤 Sending your message...', 'info');
             
-            // EmailJS template parameters - using standard variables
-            const templateParams = {
-                to_name: 'Locotag Team',
-                to_email: 'hello@locotag.io',
-                from_name: contactName,
-                from_email: email,
-                subject: 'New Contact Form Submission - Locotag',
-                message: `Hi Locotag Team,
-
-I'm interested in learning more about Locotag for my venue.
-
-VENUE DETAILS:
-- Venue Name: ${venueName}
-- Contact Name: ${contactName}
-- Email: ${email}
-- Phone: ${phone || 'Not provided'}
-- Venue Type: ${venueType}
-- Number of Locations: ${locations}
-
-MESSAGE:
-${message || 'No additional message provided'}
-
-PILOT PROGRAM INTEREST: ${pilotInterest ? 'Yes' : 'No'}
-
-Please contact me to discuss how Locotag can work for my business.
-
-Best regards,
-${contactName}
-${venueName}`
-            };
+            // Create a simple form submission to Formspree
+            const formDataToSend = new FormData();
+            formDataToSend.append('venue-name', venueName);
+            formDataToSend.append('contact-name', contactName);
+            formDataToSend.append('email', email);
+            formDataToSend.append('phone', phone || 'Not provided');
+            formDataToSend.append('venue-type', venueType);
+            formDataToSend.append('locations', locations);
+            formDataToSend.append('message', message || 'No additional message provided');
+            formDataToSend.append('pilot-interest', pilotInterest ? 'Yes' : 'No');
+            formDataToSend.append('_replyto', email);
+            formDataToSend.append('_subject', 'New Contact Form Submission - Locotag');
             
-            // Send email using EmailJS
-            emailjs.send('service_5et60nb', 'template_5zkmyrr', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+            // Submit to Formspree (free service, no setup required)
+            fetch('https://formspree.io/f/xayvqjzp', {
+                method: 'POST',
+                body: formDataToSend,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
                     showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
                     contactForm.reset();
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    console.log('Error details:', error.text);
-                    console.log('Template params sent:', templateParams);
-                    showNotification('❌ Failed to send message. Please try again or contact us directly.', 'error');
-                })
-                .finally(function() {
-                    // Reset button state
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                });
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                showNotification('❌ Failed to send message. Please try again or contact us directly.', 'error');
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            });
             
             // Log the form data
             console.log('Contact form submission:', {
@@ -819,42 +809,38 @@ ${venueName}`
             submitButton.disabled = true;
             showNotification('📤 Sending your application...', 'info');
             
-            // EmailJS template parameters - using standard variables
-            const templateParams = {
-                to_name: 'Locotag Team',
-                to_email: 'hello@locotag.io',
-                from_name: 'Pilot Program Applicant',
-                from_email: email,
-                subject: 'New Pilot Program Application',
-                message: `Hi Locotag Team,
-
-I'm interested in applying for your pilot program.
-
-Business Email: ${email}
-
-Please contact me to discuss how Locotag can work for my venue.
-
-Best regards,
-${email}`
-            };
+            // Create a simple form submission to Formspree
+            const formDataToSend = new FormData();
+            formDataToSend.append('email', email);
+            formDataToSend.append('_replyto', email);
+            formDataToSend.append('_subject', 'New Pilot Program Application');
+            formDataToSend.append('_to', 'hello@locotag.io');
             
-            // Send email using EmailJS
-            emailjs.send('service_5et60nb', 'template_5zkmyrr', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+            // Submit to Formspree (free service, no setup required)
+            fetch('https://formspree.io/f/xayvqjzq', {
+                method: 'POST',
+                body: formDataToSend,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
                     showNotification('🎉 Application submitted successfully! We\'ll contact you within 24 hours.', 'success');
                     pilotForm.reset();
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    console.log('Error details:', error.text);
-                    console.log('Template params sent:', templateParams);
-                    showNotification('❌ Failed to send application. Please try again or contact us directly.', 'error');
-                })
-                .finally(function() {
-                    // Reset button state
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                });
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error);
+                showNotification('❌ Failed to send application. Please try again or contact us directly.', 'error');
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            });
             
             // Log application
             console.log('🚀 Pilot Program Application:', email);
