@@ -524,8 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-page-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            // Don't prevent default - let Formspree handle the submission
-            // e.preventDefault();
+            e.preventDefault();
             
             // Get form data
             const formData = new FormData(this);
@@ -538,8 +537,41 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = formData.get('message');
             const pilotInterest = formData.get('pilot-interest');
             
-            // Show loading notification
-            showNotification('📤 Sending your message...', 'info');
+            // Create mailto link with pre-filled subject and body
+            const subject = encodeURIComponent('New Contact Form Submission - Locotag');
+            const body = encodeURIComponent(`Hi Locotag Team,
+
+I'm interested in learning more about Locotag for my venue.
+
+VENUE DETAILS:
+- Venue Name: ${venueName}
+- Contact Name: ${contactName}
+- Email: ${email}
+- Phone: ${phone || 'Not provided'}
+- Venue Type: ${venueType}
+- Number of Locations: ${locations}
+
+MESSAGE:
+${message || 'No additional message provided'}
+
+PILOT PROGRAM INTEREST: ${pilotInterest ? 'Yes' : 'No'}
+
+Please contact me to discuss how Locotag can work for my business.
+
+Best regards,
+${contactName}
+${venueName}`);
+            
+            const mailtoLink = `mailto:hello@locotag.io?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success notification
+            showNotification('📧 Email client opened! Please send the email to complete your inquiry.', 'success');
+            
+            // Reset form
+            this.reset();
             
             // Log the form data
             console.log('Contact form submission:', {
@@ -552,8 +584,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 message,
                 pilotInterest: pilotInterest ? 'Yes' : 'No'
             });
-            
-            // Form will be submitted to Formspree which will send email to hello@locotag.io
         });
     }
 
@@ -769,18 +799,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const pilotForm = document.querySelector('.pilot-program-form');
     if (pilotForm) {
         pilotForm.addEventListener('submit', function(e) {
-            // Don't prevent default - let Formspree handle the submission
-            // e.preventDefault();
+            e.preventDefault();
             
             const email = this.querySelector('input[type="email"]').value;
             
-            // Show loading message
-            showNotification('📤 Submitting your application...', 'info');
+            // Create mailto link with pre-filled subject and body
+            const subject = encodeURIComponent('New Pilot Program Application');
+            const body = encodeURIComponent(`Hi Locotag Team,
+
+I'm interested in applying for your pilot program.
+
+Business Email: ${email}
+
+Please contact me to discuss how Locotag can work for my venue.
+
+Best regards,
+${email}`);
+
+            const mailtoLink = `mailto:hello@locotag.io?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            showNotification('📧 Email client opened! Please send the email to complete your application.', 'success');
+            
+            // Clear form
+            this.reset();
             
             // Log application
             console.log('🚀 Pilot Program Application:', email);
-            
-            // Form will be submitted to Formspree which will send email to hello@locotag.io
         });
     }
     
