@@ -524,7 +524,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-page-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default - let Formspree handle the submission
+            // e.preventDefault();
             
             // Get form data
             const formData = new FormData(this);
@@ -537,10 +538,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const message = formData.get('message');
             const pilotInterest = formData.get('pilot-interest');
             
-            // Show success notification
-            showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
+            // Show loading notification
+            showNotification('📤 Sending your message...', 'info');
             
-            // Log the form data (in production, this would send to your backend)
+            // Log the form data
             console.log('Contact form submission:', {
                 venueName,
                 contactName,
@@ -552,8 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pilotInterest: pilotInterest ? 'Yes' : 'No'
             });
             
-            // Reset form
-            this.reset();
+            // Form will be submitted to Formspree which will send email to hello@locotag.io
         });
     }
 
@@ -769,17 +769,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const pilotForm = document.querySelector('.pilot-program-form');
     if (pilotForm) {
         pilotForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default - let Formspree handle the submission
+            // e.preventDefault();
+            
             const email = this.querySelector('input[type="email"]').value;
             
-            // Show success message
-            showNotification('🎉 Application submitted! We\'ll contact you within 24 hours.', 'success');
+            // Show loading message
+            showNotification('📤 Submitting your application...', 'info');
             
-            // Clear form
-            this.reset();
-            
-            // Log application (you can integrate with your CRM here)
+            // Log application
             console.log('🚀 Pilot Program Application:', email);
+            
+            // Form will be submitted to Formspree which will send email to hello@locotag.io
         });
     }
     

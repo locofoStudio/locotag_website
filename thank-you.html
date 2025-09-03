@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Locotag</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="canonical" href="https://www.locotag.io/thank-you">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Founder+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&family=Roboto+Flex:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <!-- Thank You Header -->
+        <section class="contact-page-header">
+            <div class="header-content">
+                <a href="index.html" class="back-button">← Back to Home</a>
+                <h1>Thank You! 🎉</h1>
+                <p class="header-subtitle">Your message has been sent successfully. We'll get back to you within 24 hours!</p>
+            </div>
+        </section>
+
+        <!-- Thank You Content -->
+        <section class="thank-you-content">
+            <div class="content-container">
+                <div class="thank-you-card">
+                    <div class="thank-you-icon">✅</div>
+                    <h2>Message Received!</h2>
+                    <p>Thank you for reaching out to Locotag. We've received your message and will respond within 24 hours.</p>
+                    
+                    <div class="next-steps">
+                        <h3>What happens next?</h3>
+                        <ul>
+                            <li>We'll review your inquiry within 24 hours</li>
+                            <li>Our team will contact you to discuss your needs</li>
+                            <li>We'll provide a customized proposal for your venue</li>
+                            <li>If you're interested, we'll schedule a demo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="index.html" class="retro-btn primary-btn">Back to Home</a>
+                        <a href="https://www.locotagapp.com" target="_blank" class="retro-btn secondary-btn">Test our Demo Webapp</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .thank-you-content {
+            padding: 4rem 2rem;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content-container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .thank-you-card {
+            background: var(--accent-dark);
+            border: 2px solid var(--accent-yellow);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .thank-you-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .thank-you-card h2 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .thank-you-card p {
+            color: var(--accent-white);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .next-steps {
+            text-align: left;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+        
+        .next-steps h3 {
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .next-steps ul {
+            color: var(--accent-white);
+            padding-left: 1.5rem;
+        }
+        
+        .next-steps li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .thank-you-content {
+                padding: 2rem 1rem;
+            }
+            
+            .thank-you-card {
+                padding: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>
