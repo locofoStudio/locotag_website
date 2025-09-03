@@ -846,21 +846,22 @@
                 </div>
                 <div class="contact-form">
                     <h3>Book Your Free Demo</h3>
-                    <form class="demo-form">
+                    <form class="demo-form" action="mailto:hello@locotag.io" method="GET" enctype="text/plain">
+                        <input type="hidden" name="subject" value="Free Demo Request - Locotag">
                         <div class="form-group">
-                            <input type="text" placeholder="Restaurant Name" required>
+                            <input type="text" name="restaurant-name" placeholder="Restaurant Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="contact-name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Email Address" required>
+                            <input type="email" name="email" placeholder="Email Address" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Phone Number" required>
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
                         </div>
                         <div class="form-group">
-                            <select required>
+                            <select name="locations" required>
                                 <option value="">Number of Locations</option>
                                 <option value="1">1 Location</option>
                                 <option value="2-5">2-5 Locations</option>
