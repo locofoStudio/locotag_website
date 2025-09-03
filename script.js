@@ -392,15 +392,88 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Form Submission
-    const demoForm = document.querySelector('.demo-form');
-    if (demoForm) {
-        demoForm.addEventListener('submit', function(e) {
+    // Contact page form handling
+    const contactForm = document.querySelector('.contact-page-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            showNotification('Demo request submitted! We\'ll contact you within 24 hours.', 'success');
             
-            // Reset form
-            demoForm.reset();
+            // Get form data
+            const formData = new FormData(this);
+            const venueName = formData.get('venue-name');
+            const contactName = formData.get('contact-name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const venueType = formData.get('venue-type');
+            const locations = formData.get('locations');
+            const message = formData.get('message');
+            const pilotInterest = formData.get('pilot-interest');
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            showNotification('📤 Sending your message...', 'info');
+            
+            // EmailJS template parameters
+            const templateParams = {
+                to_email: 'hello@locotag.io',
+                from_email: email,
+                from_name: contactName,
+                subject: 'New Contact Form Submission - Locotag',
+                message: `Hi Locotag Team,
+
+I'm interested in learning more about Locotag for my venue.
+
+VENUE DETAILS:
+- Venue Name: ${venueName}
+- Contact Name: ${contactName}
+- Email: ${email}
+- Phone: ${phone || 'Not provided'}
+- Venue Type: ${venueType}
+- Number of Locations: ${locations}
+
+MESSAGE:
+${message || 'No additional message provided'}
+
+PILOT PROGRAM INTEREST: ${pilotInterest ? 'Yes' : 'No'}
+
+Please contact me to discuss how Locotag can work for my business.
+
+Best regards,
+${contactName}
+${venueName}`
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_id', 'template_id', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
+                    contactForm.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showNotification('❌ Failed to send message. Please try again or contact us directly.', 'error');
+                })
+                .finally(function() {
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                });
+            
+            // Log the form data
+            console.log('Contact form submission:', {
+                venueName,
+                contactName,
+                email,
+                phone,
+                venueType,
+                locations,
+                message,
+                pilotInterest: pilotInterest ? 'Yes' : 'No'
+            });
         });
     }
     
@@ -520,73 +593,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Contact page form handling
-    const contactForm = document.querySelector('.contact-page-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const venueName = formData.get('venue-name');
-            const contactName = formData.get('contact-name');
-            const email = formData.get('email');
-            const phone = formData.get('phone');
-            const venueType = formData.get('venue-type');
-            const locations = formData.get('locations');
-            const message = formData.get('message');
-            const pilotInterest = formData.get('pilot-interest');
-            
-            // Create mailto link with pre-filled subject and body
-            const subject = encodeURIComponent('New Contact Form Submission - Locotag');
-            const body = encodeURIComponent(`Hi Locotag Team,
-
-I'm interested in learning more about Locotag for my venue.
-
-VENUE DETAILS:
-- Venue Name: ${venueName}
-- Contact Name: ${contactName}
-- Email: ${email}
-- Phone: ${phone || 'Not provided'}
-- Venue Type: ${venueType}
-- Number of Locations: ${locations}
-
-MESSAGE:
-${message || 'No additional message provided'}
-
-PILOT PROGRAM INTEREST: ${pilotInterest ? 'Yes' : 'No'}
-
-Please contact me to discuss how Locotag can work for my business.
-
-Best regards,
-${contactName}
-${venueName}`);
-            
-            const mailtoLink = `mailto:hello@locotag.io?subject=${subject}&body=${body}`;
-            
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success notification
-            showNotification('📧 Email client opened! Please send the email to complete your inquiry.', 'success');
-            
-            // Reset form
-            this.reset();
-            
-            // Log the form data
-            console.log('Contact form submission:', {
-                venueName,
-                contactName,
-                email,
-                phone,
-                venueType,
-                locations,
-                message,
-                pilotInterest: pilotInterest ? 'Yes' : 'No'
-            });
-        });
-    }
-
     // Falling Coins Animation on Scroll
     function createFallingCoins() {
         const coinContainer = document.createElement('div');
@@ -802,10 +808,20 @@ ${venueName}`);
             e.preventDefault();
             
             const email = this.querySelector('input[type="email"]').value;
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
             
-            // Create mailto link with pre-filled subject and body
-            const subject = encodeURIComponent('New Pilot Program Application');
-            const body = encodeURIComponent(`Hi Locotag Team,
+            // Show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            showNotification('📤 Sending your application...', 'info');
+            
+            // EmailJS template parameters
+            const templateParams = {
+                to_email: 'hello@locotag.io',
+                from_email: email,
+                subject: 'New Pilot Program Application',
+                message: `Hi Locotag Team,
 
 I'm interested in applying for your pilot program.
 
@@ -814,18 +830,24 @@ Business Email: ${email}
 Please contact me to discuss how Locotag can work for my venue.
 
 Best regards,
-${email}`);
-
-            const mailtoLink = `mailto:hello@locotag.io?subject=${subject}&body=${body}`;
+${email}`
+            };
             
-            // Open email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
-            showNotification('📧 Email client opened! Please send the email to complete your application.', 'success');
-            
-            // Clear form
-            this.reset();
+            // Send email using EmailJS
+            emailjs.send('service_id', 'template_id', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showNotification('🎉 Application submitted successfully! We\'ll contact you within 24 hours.', 'success');
+                    pilotForm.reset();
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showNotification('❌ Failed to send application. Please try again or contact us directly.', 'error');
+                })
+                .finally(function() {
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                });
             
             // Log application
             console.log('🚀 Pilot Program Application:', email);
