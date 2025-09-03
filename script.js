@@ -417,11 +417,12 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             showNotification('📤 Sending your message...', 'info');
             
-            // EmailJS template parameters
+            // EmailJS template parameters - using standard variables
             const templateParams = {
+                to_name: 'Locotag Team',
                 to_email: 'hello@locotag.io',
-                from_email: email,
                 from_name: contactName,
+                from_email: email,
                 subject: 'New Contact Form Submission - Locotag',
                 message: `Hi Locotag Team,
 
@@ -455,6 +456,8 @@ ${venueName}`
                     contactForm.reset();
                 }, function(error) {
                     console.log('FAILED...', error);
+                    console.log('Error details:', error.text);
+                    console.log('Template params sent:', templateParams);
                     showNotification('❌ Failed to send message. Please try again or contact us directly.', 'error');
                 })
                 .finally(function() {
@@ -816,9 +819,11 @@ ${venueName}`
             submitButton.disabled = true;
             showNotification('📤 Sending your application...', 'info');
             
-            // EmailJS template parameters
+            // EmailJS template parameters - using standard variables
             const templateParams = {
+                to_name: 'Locotag Team',
                 to_email: 'hello@locotag.io',
+                from_name: 'Pilot Program Applicant',
                 from_email: email,
                 subject: 'New Pilot Program Application',
                 message: `Hi Locotag Team,
@@ -841,6 +846,8 @@ ${email}`
                     pilotForm.reset();
                 }, function(error) {
                     console.log('FAILED...', error);
+                    console.log('Error details:', error.text);
+                    console.log('Template params sent:', templateParams);
                     showNotification('❌ Failed to send application. Please try again or contact us directly.', 'error');
                 })
                 .finally(function() {
