@@ -228,7 +228,7 @@ The website includes strategic placeholder sections for:
 ## 📞 Contact
 
 For questions or customization requests:
-- **Email**: hello@locotag.studio
+- **Email**: hello@locotag.io
 - **Phone**: +852 XXXX XXXX
 
 ---
