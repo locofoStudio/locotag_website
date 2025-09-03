@@ -392,83 +392,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Contact page form handling
-    const contactForm = document.querySelector('.contact-page-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const venueName = formData.get('venue-name');
-            const contactName = formData.get('contact-name');
-            const email = formData.get('email');
-            const phone = formData.get('phone');
-            const venueType = formData.get('venue-type');
-            const locations = formData.get('locations');
-            const message = formData.get('message');
-            const pilotInterest = formData.get('pilot-interest');
-            
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            // Show loading state
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-            showNotification('📤 Sending your message...', 'info');
-            
-            // Create a simple form submission to Formspree
-            const formDataToSend = new FormData();
-            formDataToSend.append('venue-name', venueName);
-            formDataToSend.append('contact-name', contactName);
-            formDataToSend.append('email', email);
-            formDataToSend.append('phone', phone || 'Not provided');
-            formDataToSend.append('venue-type', venueType);
-            formDataToSend.append('locations', locations);
-            formDataToSend.append('message', message || 'No additional message provided');
-            formDataToSend.append('pilot-interest', pilotInterest ? 'Yes' : 'No');
-            formDataToSend.append('_replyto', email);
-            formDataToSend.append('_subject', 'New Contact Form Submission - Locotag');
-            
-            // Submit to Formspree (free service, no setup required)
-            fetch('https://formspree.io/f/xayvqjzp', {
-                method: 'POST',
-                body: formDataToSend,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    showNotification('🎉 Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
-                    contactForm.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error);
-                showNotification('❌ Failed to send message. Please try again or contact us directly.', 'error');
-            })
-            .finally(() => {
-                // Reset button state
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            });
-            
-            // Log the form data
-            console.log('Contact form submission:', {
-                venueName,
-                contactName,
-                email,
-                phone,
-                venueType,
-                locations,
-                message,
-                pilotInterest: pilotInterest ? 'Yes' : 'No'
-            });
-        });
-    }
+    // Contact page form handling - now using native HTML form submission
+    // Forms will automatically open email client with pre-filled content
     
     // Pricing Card Interactions
     const pricingCards = document.querySelectorAll('.pricing-card');
@@ -794,58 +719,8 @@ document.addEventListener('DOMContentLoaded', function() {
     Built with love for Hong Kong's hospitality industry.
     `);
     
-    // Pilot Program form handling
-    const pilotForm = document.querySelector('.pilot-program-form');
-    if (pilotForm) {
-        pilotForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = this.querySelector('input[type="email"]').value;
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            // Show loading state
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-            showNotification('📤 Sending your application...', 'info');
-            
-            // Create a simple form submission to Formspree
-            const formDataToSend = new FormData();
-            formDataToSend.append('email', email);
-            formDataToSend.append('_replyto', email);
-            formDataToSend.append('_subject', 'New Pilot Program Application');
-            formDataToSend.append('_to', 'hello@locotag.io');
-            
-            // Submit to Formspree (free service, no setup required)
-            fetch('https://formspree.io/f/xayvqjzq', {
-                method: 'POST',
-                body: formDataToSend,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    showNotification('🎉 Application submitted successfully! We\'ll contact you within 24 hours.', 'success');
-                    pilotForm.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error);
-                showNotification('❌ Failed to send application. Please try again or contact us directly.', 'error');
-            })
-            .finally(() => {
-                // Reset button state
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            });
-            
-            // Log application
-            console.log('🚀 Pilot Program Application:', email);
-        });
-    }
+    // Pilot Program form handling - now using native HTML form submission
+    // Forms will automatically open email client with pre-filled content
     
     // Performance monitoring
     if ('performance' in window) {
