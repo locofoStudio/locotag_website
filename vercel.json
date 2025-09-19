@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "api/submit-pilot.js": {
+      "maxDuration": 10
+    },
+    "api/submit-demo.js": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "EMAIL_USER": "@email_user",
+    "EMAIL_PASS": "@email_pass"
+  }
+}
