@@ -108,6 +108,7 @@ const createSelfSignedCert = () => {
         }
 
         console.log('🔐 Creating self-signed SSL certificate for local HTTPS...');
+        console.log('⚠️  Note: These certificates are for local development only and will not be committed to git');
         
         // Generate private key
         execSync('openssl genrsa -out server.key 2048', { stdio: 'inherit' });
@@ -115,7 +116,7 @@ const createSelfSignedCert = () => {
         // Generate certificate
         execSync('openssl req -new -x509 -key server.key -out server.crt -days 365 -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"', { stdio: 'inherit' });
         
-        console.log('✅ SSL certificate created successfully');
+        console.log('✅ SSL certificate created successfully (local only)');
     } catch (error) {
         console.error('❌ Error creating SSL certificate:', error.message);
         console.log('💡 You can manually create certificates or use HTTP for testing');
