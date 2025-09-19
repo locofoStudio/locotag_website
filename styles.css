@@ -2082,10 +2082,16 @@ a.retro-btn.secondary:hover {
 
 .addons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
     max-width: 1000px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .addons-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .addon-item {
@@ -2166,10 +2172,16 @@ a.retro-btn.secondary:hover {
 
 .custom-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
     max-width: 1000px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .custom-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .custom-item {
@@ -2354,10 +2366,16 @@ a.retro-btn.secondary:hover {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-lg);
     max-width: 1200px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .pricing-card {
@@ -2437,6 +2455,59 @@ a.retro-btn.secondary:hover {
     padding: var(--spacing-xs) 0;
     font-family: var(--font-body);
     font-size: 0.9rem;
+}
+
+/* New Pricing Structure Styles */
+.pricing-subtitle {
+    color: var(--accent-white);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xl);
+    font-family: var(--font-body);
+    opacity: 0.9;
+}
+
+.venue-count {
+    color: var(--accent-teal);
+    font-size: 0.95rem;
+    margin: var(--spacing-xs) 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+.user-info {
+    margin-top: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.included-users {
+    color: var(--accent-white);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+.overage-rate {
+    color: var(--accent-lilac);
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    opacity: 0.8;
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--accent-orange);
+    color: var(--accent-white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 /* FAQ Section */
