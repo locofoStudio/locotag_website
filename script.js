@@ -358,17 +358,94 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
     
-    // Form handling (if forms are added later)
+    // Direct form handling without external services
     document.addEventListener('submit', function(e) {
         if (e.target.tagName === 'FORM') {
             e.preventDefault();
-            const submitButton = e.target.querySelector('button[type="submit"]');
+            const form = e.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            
             if (submitButton) {
                 const resetLoading = addLoadingState(submitButton);
-                setTimeout(resetLoading, 2000);
+                
+                // Handle different forms
+                if (form.id === 'pilot-form') {
+                    handlePilotForm(form, resetLoading);
+                } else if (form.id === 'demo-form') {
+                    handleDemoForm(form, resetLoading);
+                } else {
+                    // Generic form handling
+                    setTimeout(resetLoading, 2000);
+                }
             }
         }
     });
+    
+    // Handle Pilot Program Form
+    async function handlePilotForm(form, resetLoading) {
+        try {
+            const formData = new FormData(form);
+            
+            const response = await fetch('/submit-pilot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.get('email')
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Application submitted successfully! We\'ll be in touch soon.', 'success');
+                form.reset();
+            } else {
+                showNotification(result.message || 'Sorry, there was an error submitting your application. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('Error submitting pilot form:', error);
+            showNotification('Sorry, there was an error submitting your application. Please try again.', 'error');
+        } finally {
+            resetLoading();
+        }
+    }
+    
+    // Handle Demo Form
+    async function handleDemoForm(form, resetLoading) {
+        try {
+            const formData = new FormData(form);
+            
+            const response = await fetch('/submit-demo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'restaurant-name': formData.get('restaurant-name'),
+                    'contact-name': formData.get('contact-name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    locations: formData.get('locations')
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Demo request submitted! We\'ll contact you within 24 hours to schedule.', 'success');
+                form.reset();
+            } else {
+                showNotification(result.message || 'Sorry, there was an error submitting your request. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('Error submitting demo form:', error);
+            showNotification('Sorry, there was an error submitting your request. Please try again.', 'error');
+        } finally {
+            resetLoading();
+        }
+    }
     
     // FAQ Functionality
     const faqItems = document.querySelectorAll('.faq-item');

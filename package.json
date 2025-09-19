@@ -1,0 +1,27 @@
+{
+  "name": "locotag-website",
+  "version": "1.0.0",
+  "description": "Locotag website with form submission handling",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "locotag",
+    "website",
+    "forms",
+    "email"
+  ],
+  "author": "Locofo Studio",
+  "license": "MIT"
+}
