@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -34,6 +34,10 @@ export default async function handler(req, res) {
     }
 
     console.log('Received contact form submission:', { venueName, contactName, email, phone, venueType, locations, message, pilotInterest });
+    console.log('Environment variables check:', { 
+      EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Not set', 
+      EMAIL_PASS: process.env.EMAIL_PASS ? 'Set' : 'Not set' 
+    });
 
     // Email configuration using environment variables
     const transporter = nodemailer.createTransporter({
