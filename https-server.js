@@ -1,10 +1,13 @@
-const express = require('express');
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
-require('dotenv').config();
+import express from 'express';
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+import nodemailer from 'nodemailer';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { execSync } from 'child_process';
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3443; // HTTPS port
@@ -98,7 +101,6 @@ app.get('/status', (req, res) => {
 
 // Create self-signed certificate for local development
 const createSelfSignedCert = () => {
-    const { execSync } = require('child_process');
     
     try {
         // Check if certificates already exist
