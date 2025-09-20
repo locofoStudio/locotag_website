@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const formData = new FormData(form);
             
-            const response = await fetch('/api/test-pilot', {
+            const response = await fetch('/api/submit-pilot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -454,13 +454,20 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const formData = new FormData(form);
             
-            const response = await fetch('/api/submit-contact-simple', {
+            const response = await fetch('/api/submit-contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: formData.get('email')
+                    'venue-name': formData.get('venue-name'),
+                    'contact-name': formData.get('contact-name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    'venue-type': formData.get('venue-type'),
+                    locations: formData.get('locations'),
+                    message: formData.get('message'),
+                    'pilot-interest': formData.get('pilot-interest') ? 'Yes' : 'No'
                 })
             });
             

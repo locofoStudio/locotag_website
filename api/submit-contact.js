@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   console.log('Contact API called with method:', req.method);
   console.log('Request body:', req.body);
   
