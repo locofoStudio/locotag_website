@@ -388,15 +388,25 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const formData = new FormData(form);
             
-            const response = await fetch('/api/submit-pilot-working', {
+            const response = await fetch('/api/submit-pilot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache'
                 },
                 body: JSON.stringify({
                     email: formData.get('email')
                 })
             });
+            
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('API Error:', errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText.substring(0, 100)}`);
+            }
             
             const result = await response.json();
             
@@ -423,6 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache'
                 },
                 body: JSON.stringify({
                     'restaurant-name': formData.get('restaurant-name'),
@@ -432,6 +443,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     locations: formData.get('locations')
                 })
             });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Demo API Error:', errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText.substring(0, 100)}`);
+            }
             
             const result = await response.json();
             
@@ -458,6 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cache-Control': 'no-cache'
                 },
                 body: JSON.stringify({
                     'venue-name': formData.get('venue-name'),
@@ -470,6 +488,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     'pilot-interest': formData.get('pilot-interest') ? 'Yes' : 'No'
                 })
             });
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Contact API Error:', errorText);
+                throw new Error(`HTTP ${response.status}: ${errorText.substring(0, 100)}`);
+            }
             
             const result = await response.json();
             
