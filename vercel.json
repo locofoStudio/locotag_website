@@ -5,6 +5,9 @@
     },
     "api/submit-demo.js": {
       "maxDuration": 10
+    },
+    "api/submit-contact.js": {
+      "maxDuration": 10
     }
   }
 }

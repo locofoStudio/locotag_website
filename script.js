@@ -373,6 +373,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     handlePilotForm(form, resetLoading);
                 } else if (form.id === 'demo-form') {
                     handleDemoForm(form, resetLoading);
+                } else if (form.id === 'contact-form') {
+                    handleContactForm(form, resetLoading);
                 } else {
                     // Generic form handling
                     setTimeout(resetLoading, 2000);
@@ -442,6 +444,44 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error submitting demo form:', error);
             showNotification('Sorry, there was an error submitting your request. Please try again.', 'error');
+        } finally {
+            resetLoading();
+        }
+    }
+    
+    // Handle Contact Form
+    async function handleContactForm(form, resetLoading) {
+        try {
+            const formData = new FormData(form);
+            
+            const response = await fetch('/api/submit-contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'venue-name': formData.get('venue-name'),
+                    'contact-name': formData.get('contact-name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    'venue-type': formData.get('venue-type'),
+                    locations: formData.get('locations'),
+                    message: formData.get('message'),
+                    'pilot-interest': formData.get('pilot-interest') ? 'Yes' : 'No'
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                showNotification('Message sent successfully! We\'ll get back to you within 24 hours.', 'success');
+                form.reset();
+            } else {
+                showNotification(result.message || 'Sorry, there was an error sending your message. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('Error submitting contact form:', error);
+            showNotification('Sorry, there was an error sending your message. Please try again.', 'error');
         } finally {
             resetLoading();
         }
