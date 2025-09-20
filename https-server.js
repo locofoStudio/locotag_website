@@ -1,13 +1,11 @@
-import express from 'express';
-import https from 'https';
-import fs from 'fs';
-import path from 'path';
-import nodemailer from 'nodemailer';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { execSync } from 'child_process';
-
-dotenv.config();
+const express = require('express');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+require('dotenv').config();
+const { execSync } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3443; // HTTPS port
