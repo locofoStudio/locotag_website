@@ -1,5 +1,6 @@
-// Import nodemailer using dynamic import for Vercel compatibility
-export default async function handler(req, res) {
+const nodemailer = require('nodemailer');
+
+module.exports = async function handler(req, res) {
   console.log('Contact API called with method:', req.method);
   console.log('Request body:', req.body);
   
@@ -37,25 +38,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // Check environment variables
-    console.log('Environment check:', {
-      EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Not set',
-      EMAIL_PASS: process.env.EMAIL_PASS ? 'Set' : 'Not set'
-    });
+    console.log('Received contact form submission:', { venueName, contactName, email, phone, venueType, locations, message, pilotInterest });
 
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.error('Missing environment variables');
-      return res.status(500).json({
-        success: false,
-        message: 'Server configuration error. Please try again later.'
-      });
-    }
-
-    // Import nodemailer dynamically
-    const nodemailer = await import('nodemailer');
-    
-    // Email configuration
-    const transporter = nodemailer.default.createTransporter({
+    // Email configuration using environment variables
+    const transporter = nodemailer.createTransporter({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
