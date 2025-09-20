@@ -1,10 +1,5 @@
-import nodemailer from 'nodemailer';
-
+// Simple Vercel serverless function for contact form
 export default async function handler(req, res) {
-  console.log('Contact API called with method:', req.method);
-  console.log('Request body:', req.body);
-  
-  // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
@@ -21,9 +16,6 @@ export default async function handler(req, res) {
       'pilot-interest': pilotInterest
     } = req.body;
 
-    console.log('Parsed form data:', { venueName, contactName, email, phone, venueType, locations, message, pilotInterest });
-
-    // Validate required fields
     if (!venueName || !contactName || !email || !venueType || !locations || !message) {
       return res.status(400).json({ 
         success: false, 
@@ -38,9 +30,9 @@ export default async function handler(req, res) {
       });
     }
 
-    console.log('Received contact form submission:', { venueName, contactName, email, phone, venueType, locations, message, pilotInterest });
+    // Dynamic import for nodemailer
+    const { default: nodemailer } = await import('nodemailer');
 
-    // Email configuration using environment variables
     const transporter = nodemailer.createTransporter({
       service: 'gmail',
       auth: {
@@ -49,7 +41,7 @@ export default async function handler(req, res) {
       }
     });
 
-    const mailOptions = {
+    await transporter.sendMail({
       from: `"Locotag Website" <${process.env.EMAIL_USER}>`,
       to: 'hello@locotag.io',
       replyTo: email,
@@ -63,22 +55,17 @@ export default async function handler(req, res) {
         <p><strong>Venue Type:</strong> ${venueType}</p>
         <p><strong>Number of Locations:</strong> ${locations}</p>
         <p><strong>Pilot Program Interest:</strong> ${pilotInterest}</p>
-        <p><strong>Source:</strong> Locotag Website (Contact Page)</p>
+        <p><strong>Source:</strong> Locotag Website</p>
         <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
         <hr>
         <h3>Message:</h3>
         <p>${message.replace(/\n/g, '<br>')}</p>
         <hr>
-        <p><strong>Next Steps:</strong> Follow up with ${contactName} to discuss their needs and requirements.</p>
+        <p><strong>Next Steps:</strong> Follow up with ${contactName} to discuss their needs.</p>
         <hr>
-        <p><em>Sent via Locotag Website Contact Form (Vercel Serverless)</em></p>
-        <p><small>Reply to this email to respond directly to ${contactName}.</small></p>
+        <p><em>Sent via Locotag Website</em></p>
       `
-    };
-
-    console.log('Attempting to send email...');
-    await transporter.sendMail(mailOptions);
-    console.log('Email sent successfully!');
+    });
     
     return res.status(200).json({ 
       success: true, 
@@ -86,11 +73,10 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error in contact form handler:', error);
+    console.error('Error:', error);
     return res.status(500).json({ 
       success: false, 
-      message: 'Failed to send message. Please try again.',
-      error: error.message
+      message: 'Failed to send message. Please try again.' 
     });
   }
 }

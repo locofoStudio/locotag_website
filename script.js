@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const formData = new FormData(form);
             
-            const response = await fetch('/api/submit-pilot', {
+            const response = await fetch('/api/submit-pilot-working', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

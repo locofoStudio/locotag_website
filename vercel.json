@@ -1,12 +1,6 @@
 {
   "functions": {
-    "api/submit-pilot.js": {
-      "maxDuration": 10
-    },
-    "api/submit-demo.js": {
-      "maxDuration": 10
-    },
-    "api/submit-contact.js": {
+    "api/*.js": {
       "maxDuration": 10
     }
   }

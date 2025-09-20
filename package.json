@@ -1,29 +1,15 @@
 {
   "name": "locotag-website",
   "version": "1.0.0",
-  "description": "Locotag website with form submission handling",
-  "type": "module",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "start:https": "node https-server.js",
-    "dev": "nodemon server.js"
-  },
+  "description": "Locotag website with Vercel serverless form handling",
   "dependencies": {
-    "@vercel/speed-insights": "^1.2.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
-    "express": "^4.18.2",
     "nodemailer": "^6.9.7"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
   },
   "keywords": [
     "locotag",
     "website",
-    "forms",
-    "email"
+    "vercel",
+    "serverless"
   ],
   "author": "Locofo Studio",
   "license": "MIT"
